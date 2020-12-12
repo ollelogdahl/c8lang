@@ -1,5 +1,17 @@
 #include "token.h"
+#include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
+
+token_t *init_token(tokentype type, char *str) {
+    token_t *tok = malloc(sizeof(token_t));
+    tok->type = type;
+
+    // Allocates the new string 
+    char* mem = malloc(strlen(str));
+    strcpy(mem,str);
+    tok->value = mem;
+}
 
 char *token_type_to_str(tokentype type) {
     switch (type) {

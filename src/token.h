@@ -2,7 +2,7 @@
 #define C8LANG_TOKEN_H
 
 typedef enum {
-   EOF,
+    EOF,
     KEYWORD,
     IDENTIFIER,
     LITERAL,
@@ -24,7 +24,6 @@ typedef enum {
     DEC,
 
     NOT,
-    AND,
     OR,
     AND,
     EQ,
@@ -36,6 +35,7 @@ typedef struct {
     tokentype type;
 } token_t;
 
+token_t *init_token(tokentype type, char *str);
 static char *tokentype_to_str(tokentype type);
 char *token_to_str(token_t *token);
 

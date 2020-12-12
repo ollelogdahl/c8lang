@@ -3,6 +3,8 @@ project(c8lang)
 
 set(CMAKE_CC_STANDARD 99)
 
+set(CMAKE_BUILD_TYPE Debug)
+
 include_directories(
     "${CMAKE_SOURCE_DIR}/src"
 )
