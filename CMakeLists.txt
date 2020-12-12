@@ -16,4 +16,5 @@ add_custom_command(OUTPUT lexer.cpp
 
 add_executable(c8lang
     src/main.c
+    src/token.c
 )
