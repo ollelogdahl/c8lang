@@ -36,6 +36,11 @@ regular:
     hex = [a-fA-F0-9];
     whitespace = [ \t\v\f]+;
 
+    'if'            {LXINC; return TOK(IF); }
+    'while'         {LXINC; return TOK(WHILE); }
+    'for'           {LXINC; return TOK(FOR); }
+    'return'        {LXINC; return TOK(RETURN); }
+
     let (let|dig)*  {LXINC; return TOK(IDENTIFIER); }
 
     [1-9][0-9]*     {LXINC; return TOK(DECLITERAL); }

@@ -3,7 +3,12 @@
 
 typedef enum {
     END,
-    KEYWORD,
+    
+    IF,
+    WHILE,
+    FOR,
+    RETURN,
+
     IDENTIFIER,
 
     DECLITERAL,

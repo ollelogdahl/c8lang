@@ -28,12 +28,18 @@ token_t *init_token_sub(tokentype type, const char *str, int len) {
 static char *tokentype_to_str(tokentype type) {
     switch (type) {
     case END: return "END";
-    case KEYWORD: return "KEYWORD";
-    case IDENTIFIER: return "IDENT";
+
+    case IF: return "IF KW";
+    case WHILE: return "WHILE KW";
+    case FOR: return "FOR KW";
+    case RETURN: return "RETURN KW";
+
+    case IDENTIFIER: return "IDENTIFIER";
     case DECLITERAL: return "DECIMAL LITERAL";
     case HEXLITERAL: return "HEXIMAL LITERAL";
     case OCTLITERAL: return "OCTAL LITERAL";
     case BINLITERAL: return "BINARY LITERAL";
+
     case LPAREN: return "(";
     case RPAREN: return ")";
     case LBRACKET: return "[";
@@ -42,6 +48,7 @@ static char *tokentype_to_str(tokentype type) {
     case RBRACE: return "}";
     case COMMA: return ",";
     case SCOLON: return ";";
+
     case PLUS: return "+";
     case MINUS: return "-";
     case MUL: return "*";
@@ -49,6 +56,7 @@ static char *tokentype_to_str(tokentype type) {
     case ASSIGN: return "=";
     case INC: return "++";
     case DEC: return "--";
+
     case NOT: return "!";
     case AND: return "&";
     case OR: return "|";
