@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.17)
 project(c8lang)
 
+set(CMAKE_CC_FLAGS "-Wall -Wfatal-errors")
 set(CMAKE_CC_STANDARD 99)
 set(CMAKE_BUILD_TYPE Debug)
 
