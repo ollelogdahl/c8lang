@@ -15,6 +15,7 @@ add_custom_command(OUTPUT lexer.c
 add_executable(c8lang
     src/main.c
     src/token.c
+    src/c8c.c
     lexer.c
 )
 target_include_directories(c8lang PUBLIC

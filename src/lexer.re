@@ -37,6 +37,7 @@ regular:
     whitespace = [ \t\v\f]+;
 
     'if'            {LXINC; return TOK(IF); }
+    'else'          {LXINC; return TOK(ELSE); }
     'while'         {LXINC; return TOK(WHILE); }
     'for'           {LXINC; return TOK(FOR); }
     'return'        {LXINC; return TOK(RETURN); }

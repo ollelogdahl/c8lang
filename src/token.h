@@ -5,6 +5,7 @@ typedef enum {
     END,
     
     IF,
+    ELSE,
     WHILE,
     FOR,
     RETURN,

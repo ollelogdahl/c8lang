@@ -1,0 +1,9 @@
+MAIN() {
+    a = 13;
+    b = JUMP(a);
+}
+
+JUMP(x) {
+    DRAW();
+    return x + 1;
+}

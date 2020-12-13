@@ -89,8 +89,10 @@ CHEAT_TEST(lexer_scan_literals,
 )
 
 CHEAT_TEST(lexer_scan_multiline,
-    lexer_t *lex = init_lexer("[\n]alfa\n");
+    lexer_t *lex = init_lexer("if[\n]alfa\n");
     token_t *tok = lexer_scan(lex);
+    cheat_assert(tok->type == IF);
+    tok = lexer_scan(lex);
     cheat_assert(tok->type == LBRACKET);
     tok = lexer_scan(lex);
     cheat_assert(tok->type == RBRACKET);

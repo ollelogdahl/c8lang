@@ -1,17 +1,14 @@
-
-#include "token.h"
-#include "lexer.h"
 #include <stdio.h>
 
-int main(int argc, char **argv) {
-    char *str = "int { 0x31 31 ==";
-    printf("%s\n", str);
-    lexer_t *lex = init_lexer(str);
+#include "c8c.h"
 
-    token_t *token = NULL;
-    while((token = lexer_scan(lex))->type != END) {
-        printf("parsed token %s\n", token_to_str(token));
+int main(int argc, char **argv) {
+    if(argc < 2) {
+        printf("no file to compile.\n");
+        return 1;
     }
+    
+    c8c_compile(argv[1]);
 
     return 0;
 }

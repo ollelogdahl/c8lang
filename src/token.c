@@ -30,6 +30,7 @@ static char *tokentype_to_str(tokentype type) {
     case END: return "END";
 
     case IF: return "IF KW";
+    case ELSE: return "ELSE KW";
     case WHILE: return "WHILE KW";
     case FOR: return "FOR KW";
     case RETURN: return "RETURN KW";
