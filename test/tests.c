@@ -57,10 +57,9 @@ CHEAT_TEST(lexer_init,
     lexer_t *lex = init_lexer("test");
 )
 
-CHEAT_TEST(lexer_scan_test,
-    lexer_t *lex = init_lexer("test ( == 0x32F 0b0101");
-    token_t *tok = NULL;
-    tok = lexer_scan(lex);
+CHEAT_TEST(lexer_scan_basic,
+    lexer_t *lex = init_lexer("test ( ==");
+    token_t *tok = lexer_scan(lex);
     cheat_assert(tok->type == IDENTIFIER);
     cheat_assert_string(tok->value, "test");
     tok = lexer_scan(lex);
@@ -68,21 +67,36 @@ CHEAT_TEST(lexer_scan_test,
     tok = lexer_scan(lex);
     cheat_assert(tok->type == ASSIGN);
     tok = lexer_scan(lex);
+    cheat_assert(tok->type == END);
+)
+
+CHEAT_TEST(lexer_scan_literals,
+    lexer_t *lex = init_lexer("0xA 012 10 0b1010");
+    token_t *tok = lexer_scan(lex);
     cheat_assert(tok->type == HEXLITERAL);
-    cheat_assert_string(tok->value, "32F");
+    cheat_assert_string(tok->value, "A");
+    tok = lexer_scan(lex);
+    cheat_assert(tok->type == OCTLITERAL);
+    cheat_assert_string(tok->value, "12");
+    tok = lexer_scan(lex);
+    cheat_assert(tok->type == DECLITERAL);
+    cheat_assert_string(tok->value, "10");
     tok = lexer_scan(lex);
     cheat_assert(tok->type == BINLITERAL);
-    cheat_assert_string(tok->value, "0101");
+    cheat_assert_string(tok->value, "1010");
+    tok = lexer_scan(lex);
+    cheat_assert(tok->type == END);
 )
 
 CHEAT_TEST(lexer_scan_multiline,
     lexer_t *lex = init_lexer("[\n]alfa\n");
-    token_t *tok = NULL;
-    tok = lexer_scan(lex);
+    token_t *tok = lexer_scan(lex);
     cheat_assert(tok->type == LBRACKET);
     tok = lexer_scan(lex);
     cheat_assert(tok->type == RBRACKET);
     tok = lexer_scan(lex);
     cheat_assert(tok->type == IDENTIFIER);
     cheat_assert_string(tok->value, "alfa");
+    tok = lexer_scan(lex);
+    cheat_assert(tok->type == END);
 )
