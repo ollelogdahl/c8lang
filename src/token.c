@@ -6,19 +6,23 @@
 token_t *init_token(tokentype type, char *str) {
     token_t *tok = (token_t*)malloc(sizeof(token_t));
     tok->type = type;
-
     // Allocates the new string 
-    char* mem = (char*)malloc(strlen(str));
-    strcpy(mem,str);
+    char *mem = (char*)malloc(strlen(str));
+    strcpy(mem, str);
     tok->value = mem;
 
     return tok;
 }
 
-token_t *init_token_sub(tokentype type, char *str) {
+token_t *init_token_sub(tokentype type, char *str, int len) {
     token_t *tok = (token_t*)malloc(sizeof(token_t));
+    tok->type = type;
 
+    char *mem = (char*)calloc(len, sizeof(char));
+    strcpy(mem, str, len);
+    tok->value = mem;
 
+    return tok;
 }
 
 static char *tokentype_to_str(tokentype type) {
