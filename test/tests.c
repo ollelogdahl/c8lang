@@ -65,7 +65,7 @@ CHEAT_TEST(lexer_scan_basic,
     tok = lexer_scan(lex);
     cheat_assert(tok->type == LPAREN);
     tok = lexer_scan(lex);
-    cheat_assert(tok->type == ASSIGN);
+    cheat_assert(tok->type == EQ);
     tok = lexer_scan(lex);
     cheat_assert(tok->type == END);
 )

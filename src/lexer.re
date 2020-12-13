@@ -8,7 +8,7 @@
 #define YYMARKER lexer->ptr
 #define TOK(type) init_token_sub(type, lexer->top, lexer->cur-lexer->top)
 #define TOKO(type, off) init_token_sub(type, lexer->top+off, lexer->cur - (lexer->top + off))
-#define INC lexer->charpos += lexer->cur-lexer->top
+#define LXINC lexer->charpos += lexer->cur-lexer->top
 
 lexer_t *init_lexer(const char *source) {
     lexer_t *lx = (lexer_t*)malloc(sizeof(lexer_t));
@@ -36,23 +36,37 @@ regular:
     hex = [a-fA-F0-9];
     whitespace = [ \t\v\f]+;
 
-    "("             {INC; return TOK(LPAREN); }
-    ")"             {INC; return TOK(RPAREN); }
-    "["             {INC; return TOK(LBRACKET); }
-    "]"             {INC; return TOK(RBRACKET); }
-    "{"             {INC; return TOK(LBRACE); }
-    "}"             {INC; return TOK(RBRACE); }
-    ";"             {INC; return TOK(SCOLON); }
+    let (let|dig)*  {LXINC; return TOK(IDENTIFIER); }
+
+    [1-9][0-9]*     {LXINC; return TOK(DECLITERAL); }
+    '0x'hex+        {LXINC; return TOKO(HEXLITERAL, 2); }
+    '0'[0-7]+       {LXINC; return TOKO(OCTLITERAL, 1); }
+    '0b'[0-1]+      {LXINC; return TOKO(BINLITERAL, 2); }
+
+    "("             {LXINC; return TOK(LPAREN); }
+    ")"             {LXINC; return TOK(RPAREN); }
+    "["             {LXINC; return TOK(LBRACKET); }
+    "]"             {LXINC; return TOK(RBRACKET); }
+    "{"             {LXINC; return TOK(LBRACE); }
+    "}"             {LXINC; return TOK(RBRACE); }
+    ","             {LXINC; return TOK(COMMA); }
+    ";"             {LXINC; return TOK(SCOLON); }
     
-    "=="            {INC; return TOK(ASSIGN); }
+    "+"             {LXINC; return TOK(PLUS); }
+    "-"             {LXINC; return TOK(MINUS); }
+    "*"             {LXINC; return TOK(MUL); }
+    "/"             {LXINC; return TOK(DIV); }
+    "="            {LXINC; return TOK(ASSIGN); }
+    "++"            {LXINC; return TOK(INC); }
+    "--"            {LXINC; return TOK(DEC); }
 
-    [1-9][0-9]*     {INC; return TOK(DECLITERAL); }
-    '0x'hex+        {INC; return TOKO(HEXLITERAL, 2); }
-    '0'[0-7]+       {INC; return TOKO(OCTLITERAL, 1); }
-    '0b'[0-1]+      {INC; return TOKO(BINLITERAL, 2); }
+    "!"            {LXINC; return TOK(NOT); }
+    "|"            {LXINC; return TOK(OR); }
+    "&"            {LXINC; return TOK(AND); }
+    "=="            {LXINC; return TOK(EQ); }
+    "!="            {LXINC; return TOK(NEQ); }
 
-    let (let|dig)*  {INC; return TOK(IDENTIFIER); }
-    whitespace      {INC; goto regular; }
+    whitespace      {LXINC; goto regular; }
 
     "\r\n"|"\n" {
         lexer->linepos++;
