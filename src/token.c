@@ -30,7 +30,10 @@ static char *tokentype_to_str(tokentype type) {
     case END: return "END";
     case KEYWORD: return "KEYWORD";
     case IDENTIFIER: return "IDENT";
-    case LITERAL: return "LITERAL";
+    case DECLITERAL: return "DECIMAL LITERAL";
+    case HEXLITERAL: return "HEXIMAL LITERAL";
+    case OCTLITERAL: return "OCTAL LITERAL";
+    case BINLITERAL: return "BINARY LITERAL";
     case LPAREN: return "(";
     case RPAREN: return ")";
     case LBRACKET: return "[";
