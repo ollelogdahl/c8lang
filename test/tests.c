@@ -71,3 +71,15 @@ CHEAT_TEST(lexer_scan_test,
     cheat_assert(tok->type == LITERAL);
     cheat_assert_string(tok->value, "0x32");
 )
+
+CHEAT_TEST(lexer_scan_multiline,
+    lexer_t *lex = init_lexer("[\n]alfa\n");
+    token_t *tok = NULL;
+    tok = lexer_scan(lex);
+    cheat_assert(tok->type == LBRACKET);
+    tok = lexer_scan(lex);
+    cheat_assert(tok->type == RBRACKET);
+    tok = lexer_scan(lex);
+    cheat_assert(tok->type == IDENTIFIER);
+    cheat_assert_string(tok->value, "alfa");
+)
