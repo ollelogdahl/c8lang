@@ -4,18 +4,26 @@
 #include <string.h>
 
 token_t *init_token(tokentype type, char *str) {
-    token_t *tok = malloc(sizeof(token_t));
+    token_t *tok = (token_t*)malloc(sizeof(token_t));
     tok->type = type;
 
     // Allocates the new string 
-    char* mem = malloc(strlen(str));
+    char* mem = (char*)malloc(strlen(str));
     strcpy(mem,str);
     tok->value = mem;
+
+    return tok;
 }
 
-char *token_type_to_str(tokentype type) {
+token_t *init_token_sub(tokentype type, char *str) {
+    token_t *tok = (token_t*)malloc(sizeof(token_t));
+
+
+}
+
+static char *tokentype_to_str(tokentype type) {
     switch (type) {
-    case EOF: return "EOF";
+    case END: return "END";
     case KEYWORD: return "KEYWORD";
     case IDENTIFIER: return "IDENT";
     case LITERAL: return "LITERAL";
@@ -41,11 +49,11 @@ char *token_type_to_str(tokentype type) {
     case NEQ: return "!=";
     }
 
-    return "invalid token.";
+    return "INVALID";
 }
 
 char *token_to_str(token_t *token) {
-    char *typestr = token_type_to_str(token->type);
+    char *typestr = tokentype_to_str(token->type);
     char *templ = "<token type='%s' value='%s'>";
 
     char *str = calloc(strlen(typestr) + strlen(templ), sizeof(char));

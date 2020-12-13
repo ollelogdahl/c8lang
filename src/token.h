@@ -2,7 +2,7 @@
 #define C8LANG_TOKEN_H
 
 typedef enum {
-    EOF,
+    END,
     KEYWORD,
     IDENTIFIER,
     LITERAL,
@@ -35,7 +35,12 @@ typedef struct {
     tokentype type;
 } token_t;
 
+// Initializes a token given a nullterminated string.
 token_t *init_token(tokentype type, char *str);
+// Initializes a token given a 'len' long string.
+// Starts at str, and ends after 'len' characters.
+token_t *init_token_sub(tokentype type, char *str, int len);
+
 static char *tokentype_to_str(tokentype type);
 char *token_to_str(token_t *token);
 
