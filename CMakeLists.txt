@@ -20,16 +20,13 @@ target_include_directories(c8lang PUBLIC
     "${CMAKE_SOURCE_DIR}/src"
 )
 
-enable_testing()
-
+# TODO: integrate cheat tests into cmake
 add_executable(test_c8lang
-    test/token.c
+    test/tests.c
     src/token.c
+    lexer.c
 )
 target_include_directories(test_c8lang PUBLIC
     "${CMAKE_SOURCE_DIR}/src"
     "${CMAKE_SOURCE_DIR}/test"
 )
-
-#target_link_libraries(test_c8lang cmocka)
-add_test(NAME c8lang COMMAND test_c8lang)

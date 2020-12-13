@@ -1,6 +1,7 @@
 #include "cheat.h"
 #include "cheats.h"
 #include "token.h"
+#include "lexer.h"
 
 CHEAT_TEST(token_init_kw,
     token_t *tok = init_token(KEYWORD, "if");
@@ -49,4 +50,24 @@ CHEAT_TEST(token_to_str_inv,
     token_t *tok = init_token((tokentype)999, "");
     cheat_assert_string(token_to_str(tok), 
         "<token type='INVALID' value=''>");
+)
+
+// TODO: Improve this test!
+CHEAT_TEST(lexer_init,
+    lexer_t *lex = init_lexer("test");
+)
+
+CHEAT_TEST(lexer_scan_test,
+    lexer_t *lex = init_lexer("test ( == 0x32");
+    token_t *tok = NULL;
+    tok = lexer_scan(lex);
+    cheat_assert(tok->type == IDENTIFIER);
+    cheat_assert_string(tok->value, "test");
+    tok = lexer_scan(lex);
+    cheat_assert(tok->type == LPAREN);
+    tok = lexer_scan(lex);
+    cheat_assert(tok->type == ASSIGN);
+    tok = lexer_scan(lex);
+    cheat_assert(tok->type == LITERAL);
+    cheat_assert_string(tok->value, "0x32");
 )
