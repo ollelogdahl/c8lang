@@ -5,7 +5,12 @@ typedef enum {
     END,
     KEYWORD,
     IDENTIFIER,
-    LITERAL,
+
+    DECLITERAL,
+    HEXLITERAL,
+    OCTLITERAL,
+    BINLITERAL,
+
     LPAREN,
     RPAREN,
     LBRACKET,

@@ -23,8 +23,8 @@ lexer_t *init_lexer(const char *source) {
 
 token_t *lexer_scan(lexer_t *lexer) {    
 regular:
-    if(lexer->cur == "\0") return init_token(END, "");
-
+    if(*(lexer->cur) == '\0')
+        return init_token(END, "");
     lexer->top = lexer->cur;
 
     /*!re2c
@@ -45,7 +45,11 @@ regular:
     
     "=="            {INC; return TOK(ASSIGN); }
 
-    '0x'?[0-9]+     {INC; return TOK(LITERAL); }
+    [0-9]+          {INC; return TOK(DECLITERAL); }
+    '0x'[0-9]+      {INC; return TOK(HEXLITERAL); }
+    '0b'[0-9]+      {INC; return TOK(BINLITERAL); }
+    '0'[0-9]+       {INC; return TOK(OCTLITERAL); }
+
     let (let|dig)*  {INC; return TOK(IDENTIFIER); }
     whitespace      {INC; goto regular; }
 
