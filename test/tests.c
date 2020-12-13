@@ -69,10 +69,10 @@ CHEAT_TEST(lexer_scan_test,
     cheat_assert(tok->type == ASSIGN);
     tok = lexer_scan(lex);
     cheat_assert(tok->type == HEXLITERAL);
-    cheat_assert_string(tok->value, "0x32F");
+    cheat_assert_string(tok->value, "32F");
     tok = lexer_scan(lex);
     cheat_assert(tok->type == BINLITERAL);
-    cheat_assert_string(tok->value, "0b0101");
+    cheat_assert_string(tok->value, "0101");
 )
 
 CHEAT_TEST(lexer_scan_multiline,

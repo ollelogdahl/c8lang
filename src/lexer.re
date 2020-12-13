@@ -7,6 +7,7 @@
 #define YYCURSOR lexer->cur
 #define YYMARKER lexer->ptr
 #define TOK(type) init_token_sub(type, lexer->top, lexer->cur-lexer->top)
+#define TOKO(type, off) init_token_sub(type, lexer->top+off, lexer->cur - (lexer->top + off))
 #define INC lexer->charpos += lexer->cur-lexer->top
 
 lexer_t *init_lexer(const char *source) {
@@ -45,10 +46,10 @@ regular:
     
     "=="            {INC; return TOK(ASSIGN); }
 
-    [0-9]+          {INC; return TOK(DECLITERAL); }
-    '0x'hex+        {INC; return TOK(HEXLITERAL); }
-    '0b'[0-1]+      {INC; return TOK(BINLITERAL); }
-    '0'[0-7]+       {INC; return TOK(OCTLITERAL); }
+    '0'[0-7]+       {INC; return TOKO(OCTLITERAL, 1); }
+    [1-9][0-9]*     {INC; return TOK(DECLITERAL); }
+    '0x'hex+        {INC; return TOKO(HEXLITERAL, 2); }
+    '0b'[0-1]+      {INC; return TOKO(BINLITERAL, 2); }
 
     let (let|dig)*  {INC; return TOK(IDENTIFIER); }
     whitespace      {INC; goto regular; }
@@ -60,7 +61,7 @@ regular:
     }
 
     [\000-\377] {
-        printf("Unrecognized symbol '%c' at line %d char %d\n", yych, lexer->linepos, lexer->charpos);
+        printf("Unrecognized symbol '%c' at %d:%d\n", yych, lexer->linepos, lexer->charpos);
         exit(EXIT_FAILURE);
     }
     */
