@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
-token_t *init_token(tokentype type, char *str) {
+token_t *init_token(tokentype type, const char *str) {
     token_t *tok = (token_t*)malloc(sizeof(token_t));
     tok->type = type;
     // Allocates the new string 
@@ -14,7 +14,7 @@ token_t *init_token(tokentype type, char *str) {
     return tok;
 }
 
-token_t *init_token_sub(tokentype type, char *str, int len) {
+token_t *init_token_sub(tokentype type, const char *str, int len) {
     token_t *tok = (token_t*)malloc(sizeof(token_t));
     tok->type = type;
 
