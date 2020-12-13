@@ -18,6 +18,22 @@ CHEAT_TEST(token_init_empty,
     cheat_assert_string(tok->value, "");
 )
 
+CHEAT_TEST(token_init_sub_all,
+    token_t *tok = init_token_sub(KEYWORD, "function", 8);
+    cheat_assert(tok->type == KEYWORD);
+    cheat_assert_string(tok->value, "function");
+)
+CHEAT_TEST(token_init_sub,
+    token_t *tok = init_token_sub(KEYWORD, "function", 4);
+    cheat_assert(tok->type == KEYWORD);
+    cheat_assert_string(tok->value, "func");
+)
+CHEAT_TEST(token_init_sub_empty,
+    token_t *tok = init_token_sub(KEYWORD, "function", 0);
+    cheat_assert(tok->type == KEYWORD);
+    cheat_assert_string(tok->value, "");
+)
+
 CHEAT_TEST(token_to_str,
     token_t *tok = init_token(KEYWORD, "if");
     cheat_assert_string(token_to_str(tok), 

@@ -19,7 +19,7 @@ token_t *init_token_sub(tokentype type, char *str, int len) {
     tok->type = type;
 
     char *mem = (char*)calloc(len, sizeof(char));
-    strcpy(mem, str, len);
+    strncpy(mem, str, len);
     tok->value = mem;
 
     return tok;

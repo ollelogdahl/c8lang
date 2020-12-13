@@ -12,12 +12,12 @@ typedef struct {
     char *lim;          // limit.
     char *ctx;          // internal use (RE2C).
 */
-    char *top, *cur, *ptr, *pos;
+    char *top, *cur, *mrk, *ctx, *pos;
 } lexer_t;
 
 // Initializes a new lexer, to lex the string source.
-lexer_t *lexer_init(char *source);
+lexer_t *lexer_init(const char *source);
 // returns the first token found by the lexer and increments it.
-token_t *scan(lexer_t *lexer);
+token_t *lexer_scan(lexer_t *lexer);
 
 #endif

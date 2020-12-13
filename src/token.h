@@ -37,8 +37,8 @@ typedef struct {
 
 // Initializes a token given a nullterminated string.
 token_t *init_token(tokentype type, char *str);
-// Initializes a token given a 'len' long string.
-// Starts at str, and ends after 'len' characters.
+// Initializes a token given a long string. Starts at str, and ends after 
+// 'len' characters.
 token_t *init_token_sub(tokentype type, char *str, int len);
 
 static char *tokentype_to_str(tokentype type);
