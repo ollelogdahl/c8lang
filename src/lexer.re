@@ -46,9 +46,9 @@ regular:
     "=="            {INC; return TOK(ASSIGN); }
 
     [0-9]+          {INC; return TOK(DECLITERAL); }
-    '0x'[0-9]+      {INC; return TOK(HEXLITERAL); }
-    '0b'[0-9]+      {INC; return TOK(BINLITERAL); }
-    '0'[0-9]+       {INC; return TOK(OCTLITERAL); }
+    '0x'hex+        {INC; return TOK(HEXLITERAL); }
+    '0b'[0-1]+      {INC; return TOK(BINLITERAL); }
+    '0'[0-7]+       {INC; return TOK(OCTLITERAL); }
 
     let (let|dig)*  {INC; return TOK(IDENTIFIER); }
     whitespace      {INC; goto regular; }

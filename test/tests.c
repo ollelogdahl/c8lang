@@ -58,7 +58,7 @@ CHEAT_TEST(lexer_init,
 )
 
 CHEAT_TEST(lexer_scan_test,
-    lexer_t *lex = init_lexer("test ( == 0x32");
+    lexer_t *lex = init_lexer("test ( == 0x32F 0b0101");
     token_t *tok = NULL;
     tok = lexer_scan(lex);
     cheat_assert(tok->type == IDENTIFIER);
@@ -68,8 +68,11 @@ CHEAT_TEST(lexer_scan_test,
     tok = lexer_scan(lex);
     cheat_assert(tok->type == ASSIGN);
     tok = lexer_scan(lex);
-    cheat_assert(tok->type == LITERAL);
-    cheat_assert_string(tok->value, "0x32");
+    cheat_assert(tok->type == HEXLITERAL);
+    cheat_assert_string(tok->value, "0x32F");
+    tok = lexer_scan(lex);
+    cheat_assert(tok->type == BINLITERAL);
+    cheat_assert_string(tok->value, "0b0101");
 )
 
 CHEAT_TEST(lexer_scan_multiline,
